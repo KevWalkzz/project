@@ -5,19 +5,19 @@ local beaten = eventsFolder:WaitForChild("Beaten")
 local tween = require(ReplicatedStorage.TweenHandler)
 local typeWrite = require(ReplicatedStorage.Typewriter)
 
-local player = Players.LocalPlayer
-local playerGui = player.PlayerGui
-local eventsGui = playerGui:WaitForChild("EventsGui")
-local BG = eventsGui.Background
-local message = BG.Messages
-local textHolder = BG.TextHolder
-local text = textHolder.Text
-local charName = BG.CharName
-local nameStroke = charName.UIStroke
-local backImage = BG.Forest
-local strangeMan = BG.StrangeMan
-local accept = textHolder.Accept
-local refuse = textHolder.Refuse
+local player = Players.LocalPlayer :: Player
+local playerGui = player.PlayerGui :: PlayerGui
+local eventsGui = playerGui:WaitForChild("EventsGui") :: ScreenGui
+local BG = eventsGui.Background :: Frame
+local message = BG.Messages :: TextButton
+local textHolder = BG.TextHolder :: Frame
+local text = textHolder.Text :: TextButton
+local charName = BG.CharName :: TextLabel
+local nameStroke = charName.UIStroke :: UIStroke
+local backImage = BG.Forest :: ImageLabel
+local strangeMan = BG.StrangeMan :: ImageLabel
+local accept = textHolder.Accept :: TextButton
+local refuse = textHolder.Refuse :: TextButton
 
 eventsGui.Enabled = false
 textHolder.Transparency = 1
@@ -29,9 +29,7 @@ strangeMan.ImageTransparency = 1
 accept.Transparency = 1
 refuse.Transparency = 1
 
--- Do a "Click to Continue" thing here
-
-beaten.OnClientEvent:Connect(function()
+beaten.OnClientEvent:Connect(function(): ()
 	eventsGui.Enabled = true
 	backImage.ImageTransparency = 0
 	typeWrite.type(message, "As you decide to explore some new lands you find yourself lost.", 0.05)

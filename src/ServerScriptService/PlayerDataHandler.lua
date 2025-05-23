@@ -58,7 +58,7 @@ local dataTemplate = {
 local ProfileService = require(game.ServerScriptService.ProfileService)
 local Players = game:GetService("Players")
 
-local ProfileStore = ProfileService.GetProfileStore("PlayerProfile51", dataTemplate)
+local ProfileStore = ProfileService.GetProfileStore("PlayerProfile56", dataTemplate)
 
 local Profiles = {}
 
@@ -83,20 +83,20 @@ local function playerAdded(player)
 	end
 end
 
-function PlayerDataHandler:Init()
+function PlayerDataHandler:Init(): ()
 	for _, player in ipairs(Players:GetPlayers()) do
 		task.spawn(playerAdded, player)
 	end
 
 	Players.PlayerAdded:Connect(playerAdded)
-	Players.PlayerRemoving:Connect(function(player)
+	Players.PlayerRemoving:Connect(function(player): ()
 		if Profiles[player] then
 			Profiles[player]:Release()
 		end
 	end)
 end
 
-local function getProfile(player)
+local function getProfile(player): ()
 	assert(Profiles[player], string.format("Profile does not exist for %s", player.UserId))
 
 	return Profiles[player]

@@ -8,7 +8,7 @@ function anim.Animate(
 	duration: number?,
 	easingStyle: Enum.EasingStyle?,
 	easingDirection: Enum.EasingDirection?
-)
+): ()
 	easingStyle = easingStyle or Enum.EasingStyle.Linear
 	easingDirection = easingDirection or Enum.EasingDirection.Out
 
