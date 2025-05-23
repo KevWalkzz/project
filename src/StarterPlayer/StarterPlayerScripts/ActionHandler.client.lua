@@ -1,21 +1,20 @@
 local buttonToRemote = {
-	SleepButton = "Sleep";
-	WorkButton = "Work";
-	ExploreButton = "Explore";
-	PunchDummies = "TrainStrength";
-	StepOnEmbers = "TrainEndurance";
-	RunAround = "TrainSpeed";
-	ReadBooks = "Intelligence";
-	DiscAff = "DiscoverAffinity";
-};
+	SleepButton = "Sleep",
+	WorkButton = "Work",
+	ExploreButton = "Explore",
+	PunchDummies = "TrainStrength",
+	StepOnEmbers = "TrainEndurance",
+	RunAround = "TrainSpeed",
+	ReadBooks = "Intelligence",
+	DiscAff = "DiscoverAffinity",
+}
 
 local texts = {
-	WorkButton = "Work";
-	RunAround = "Run Around";
-	ReadBooks = "Read Books";
-};
+	WorkButton = "Work",
+	RunAround = "Run Around",
+	ReadBooks = "Read Books",
+}
 
-local RS = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local player: Player = Players.LocalPlayer or error("LocalPlayer is nil!")
 local PlayerGui = player:WaitForChild("PlayerGui") :: PlayerGui
@@ -25,26 +24,19 @@ local BG = PlayerGui:WaitForChild("Main").Background
 local homeFrame = BG["01-HomeFrame"]
 local trainFrame = BG["03-TrainFrame"]
 
-local homeActionList = homeFrame.ActionList
-local homeLoopActionList = homeFrame.LoopActionList
-local trainActionList = trainFrame.ActionList
-local trainLoopActionList = trainFrame.LoopActionList
 local homeHoverGui = BG.Parent.Parent:WaitForChild("Hover")
 local homeHoverFrame = homeHoverGui:WaitForChild("HoverFrame")
 local mouse = game.Players.LocalPlayer:GetMouse()
-local tweenHandler = require(RS:WaitForChild("TweenHandler"))
 
-local activeButton  = nil
+local activeButton = nil
 local progressTask = nil
-
-local allActionButtons = {}
 
 local function getAllButtons()
 	local actionLists = {
 		homeFrame.ActionList,
 		homeFrame.LoopActionList,
 		trainFrame.ActionList,
-		trainFrame.LoopActionList
+		trainFrame.LoopActionList,
 	}
 	local buttons = {}
 
@@ -109,9 +101,8 @@ local function startProgress(button, remoteName, text)
 	end)
 end
 
-for i, v in pairs(getAllButtons()) do
+for _i, v in pairs(getAllButtons()) do
 	if v:IsA("TextButton") then
-
 		-- Show a frame with a description when hovered
 		v.MouseEnter:Connect(function()
 			homeHoverFrame.Position = UDim2.new(0, mouse.X + 30, 0, mouse.Y)
@@ -120,12 +111,12 @@ for i, v in pairs(getAllButtons()) do
 			homeHoverFrame.ScrollingFrame.CanvasPosition = Vector2.new(0, 0)
 			homeHoverFrame.Visible = true
 		end)
-		
+
 		v.MouseMoved:Connect(function()
 			homeHoverFrame.Position = UDim2.new(0, mouse.X + 30, 0, mouse.Y)
 			homeHoverFrame.Visible = true
 		end)
-		
+
 		v.MouseLeave:Connect(function()
 			homeHoverFrame.Position = UDim2.new(0, mouse.X + 30, 0, mouse.Y)
 			homeHoverFrame.Visible = false
@@ -136,7 +127,9 @@ for i, v in pairs(getAllButtons()) do
 			local text = texts[v.Name] or v.Name
 
 			if remoteName and v.Parent.Name ~= "LoopActionList" then
-				if remoteName == "DiscoverAffinity" then v.Visible = false end -- Make Only Discover Affinity Button invisible when clicked
+				if remoteName == "DiscoverAffinity" then
+					v.Visible = false
+				end -- Make Only Discover Affinity Button invisible when clicked
 				game.ReplicatedStorage.Events[remoteName]:FireServer(v.Action.Value)
 			elseif remoteName and v.Parent.Name == "LoopActionList" then
 				-- Start or cancel progress
