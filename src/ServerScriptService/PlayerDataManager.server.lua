@@ -1,4 +1,5 @@
 -- services
+local Players = game:GetService("Players")
 local SSS = game:GetService("ServerScriptService")
 
 -- requires
@@ -32,7 +33,7 @@ local Death = EventsFolder:WaitForChild("Death")
 -- == EVENTS == --
 
 -- START PLAYER STATS --
-game.Players.PlayerAdded:Connect(function(player: Player)
+Players.PlayerAdded:Connect(function(player: Player)
 	local currentStamina, currentGold, currentStrength, currentEndurance, currentSpeed, currentHp, currentIntel, currentTime, currentAge, currentLifespan =
 		GetData.Data(
 			player,

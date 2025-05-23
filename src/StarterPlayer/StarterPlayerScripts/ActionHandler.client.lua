@@ -16,6 +16,7 @@ local texts = {
 }
 
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local player: Player = Players.LocalPlayer or error("LocalPlayer is nil!")
 local PlayerGui = player:WaitForChild("PlayerGui") :: PlayerGui
 
@@ -26,7 +27,7 @@ local trainFrame = BG["03-TrainFrame"]
 
 local homeHoverGui = BG.Parent.Parent:WaitForChild("Hover")
 local homeHoverFrame = homeHoverGui:WaitForChild("HoverFrame")
-local mouse = game.Players.LocalPlayer:GetMouse()
+local mouse = Players.LocalPlayer:GetMouse()
 
 local activeButton = nil
 local progressTask = nil
@@ -87,7 +88,7 @@ local function startProgress(button, remoteName, text)
 
 				-- If progress reaches 100%, fire the event and reset the progress
 				if i == 100 then
-					game.ReplicatedStorage.Events[remoteName]:FireServer(button.Action.Value)
+					ReplicatedStorage.Events[remoteName]:FireServer(button.Action.Value)
 					print("Completed " .. text .. " progress!")
 				end
 			end
@@ -130,7 +131,7 @@ for _i, v in pairs(getAllButtons()) do
 				if remoteName == "DiscoverAffinity" then
 					v.Visible = false
 				end -- Make Only Discover Affinity Button invisible when clicked
-				game.ReplicatedStorage.Events[remoteName]:FireServer(v.Action.Value)
+				ReplicatedStorage.Events[remoteName]:FireServer(v.Action.Value)
 			elseif remoteName and v.Parent.Name == "LoopActionList" then
 				-- Start or cancel progress
 				if activeButton == v then

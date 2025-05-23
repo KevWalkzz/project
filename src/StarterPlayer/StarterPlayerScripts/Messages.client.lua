@@ -63,7 +63,9 @@ local function chooseTip(lastTip: string?): string
 end
 
 messagesEvent.OnClientEvent:Connect(function(message: string)
-	if tweening then return end
+	if tweening then
+		return
+	end
 	tweening = true
 	print("Fired")
 	sendMessage(message)
@@ -80,7 +82,9 @@ local messageTips = coroutine.create(function()
 	print("Executing Messages Tips!")
 	while task.wait(120) do
 		if tweening then
-			repeat task.wait() until not tweening
+			repeat
+				task.wait()
+			until not tweening
 		end
 		tweening = true
 		local randomTip = chooseTip(lastTip)
@@ -97,9 +101,9 @@ coroutine.resume(messageTips)
 local messagesDelete = coroutine.create(function()
 	print("Executing Messages Delete!")
 	while task.wait(60) do
-		local messages = Mes:GetChildren()
-		if #messages > 1 then
-			for _, v in ipairs(messages) do
+		local message = Mes:GetChildren()
+		if #message > 1 then
+			for _, v in ipairs(message) do
 				if v:IsA("TextLabel") and v.Name == "Message" then
 					v:Destroy()
 				end

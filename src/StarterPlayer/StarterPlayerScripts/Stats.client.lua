@@ -25,7 +25,11 @@ local speedText = statsFrame:FindFirstChild("Speed") :: TextLabel
 local intelText = statsFrame:FindFirstChild("Intelligence") :: TextLabel
 local ageText = statsFrame:FindFirstChild("Age") :: TextLabel
 local timeText = main:WaitForChild("Stamina"):WaitForChild("Time") :: TextLabel
-local qiText = playerGui:WaitForChild("Main"):WaitForChild("Background"):WaitForChild("04-CultivationFrame"):FindFirstChild("QiText") :: TextLabel
+local qiText = playerGui
+	:WaitForChild("Main")
+	:WaitForChild("Background")
+	:WaitForChild("04-CultivationFrame")
+	:FindFirstChild("QiText") :: TextLabel
 
 local function updateTextLabel(label: TextLabel?, text: string)
 	if label then
@@ -65,19 +69,20 @@ Intelligence.OnClientEvent:Connect(function(intelligence: number, studyName: str
 	print(if studyName then "Study: " .. studyName else "Updating Intelligence Value: " .. tostring(intelligence))
 end)
 
-Qi.OnClientEvent:Connect(function(Qi: number)
-	updateTextLabel(qiText, "Qi: " .. tostring(Qi))
-	print("Updating Qi Value: " .. tostring(Qi))
+Qi.OnClientEvent:Connect(function(QiValue: number)
+	updateTextLabel(qiText, "Qi: " .. tostring(QiValue))
+	print("Updating Qi Value: " .. tostring(QiValue))
 end)
 
-Age.OnClientEvent:Connect(function(ageVal: number, lifespanVal: number)
+Age.OnClientEvent:Connect(function(ageVal: number, _lifespanVal: number)
 	updateTextLabel(ageText, "Age: " .. tostring(ageVal))
 	Age:FireServer()
 	print("Updating Age Value: " .. tostring(ageVal))
 end)
 
-Time.OnClientEvent:Connect(function(currentTime, timeValue: number?)
-	local TimeText = `Time: Y{currentTime.Year} M{currentTime.Month} D{currentTime.Day} {currentTime.Hour or timeValue.Hour}H`
+Time.OnClientEvent:Connect(function(currentTime, timeValue): ()
+	local TimeText =
+		`Time: Y{currentTime.Year} M{currentTime.Month} D{currentTime.Day} {currentTime.Hour or timeValue.Hour}H`
 	print(TimeText)
 	updateTextLabel(timeText, tostring(TimeText))
 end)
