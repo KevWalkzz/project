@@ -29,17 +29,47 @@ no.Transparency = 1
 innerLine2.Transparency = 1
 outerLine2.Transparency = 1
 
-DeathEvent.OnClientEvent:Connect(function()
+local skipFlag = { value = false }
+
+local function waitForClick(button: TextButton, timeout: number): ()
+	local clicked = false
+	local connection = button.MouseButton1Click:Connect(function(): ()
+		clicked = true
+	end)
+
+	local startTime = os.clock()
+	while not clicked and os.clock() - startTime < timeout do
+		task.wait()
+	end
+
+	connection:Disconnect()
+end
+
+local function showTextAndWait(object: any, Text: string, speed: number, timeout: number)
+	skipFlag.value = false
+
+	local _typingThread = task.spawn(function(): ()
+		Typewriter.type(object, Text, speed, skipFlag)
+	end)
+
+	object.MouseButton1Click:Connect(function(): ()
+		skipFlag.value = true
+	end)
+
+	task.wait(#Text * speed)
+
+	waitForClick(object, timeout)
+end
+
+DeathEvent.OnClientEvent:Connect(function(): ()
 	deathGui.Enabled = true
 	deathGui.BG.Transparency = 0
 
 	TweenHandler.Animate(text, { TextTransparency = 0 }, 1)
-	Typewriter.type(text, "Hey...", 0.05)
-	task.wait(2)
+	showTextAndWait(text, "Hey...", 0.05, 2)
 	TweenHandler.Animate(image, { ImageTransparency = 0 }, 1)
-	Typewriter.type(text, "It seems that your life has come to an end.", 0.05)
-	task.wait(4)
-	Typewriter.type(text, "What will you do?", 0.05)
+	showTextAndWait(text, "It seems that your life has come to an end.", 0.05, 4)
+	showTextAndWait(text, "What will you do?", 0.05, 2)
 	task.wait(2)
 	TweenHandler.Animate(yes, { TextTransparency = 0, Transparency = 0 }, 1)
 	TweenHandler.Animate(innerLine, { Transparency = 0 }, 1)

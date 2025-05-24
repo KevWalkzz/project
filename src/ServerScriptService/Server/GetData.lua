@@ -1,7 +1,7 @@
 local GetData = {}
 local PlayerDataHandler = require(game.ServerScriptService:WaitForChild("PlayerDataHandler"))
 
-function GetData.Data(player, Data: string, ...: string?)
+function GetData.Data(player, Data: string, ...: string?): ()
 	local results = {}
 
 	table.insert(results, PlayerDataHandler:Get(player, Data))

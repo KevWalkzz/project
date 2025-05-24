@@ -58,16 +58,16 @@ local dataTemplate = {
 local ProfileService = require(game.ServerScriptService.ProfileService)
 local Players = game:GetService("Players")
 
-local ProfileStore = ProfileService.GetProfileStore("PlayerProfile56", dataTemplate)
+local ProfileStore = ProfileService.GetProfileStore("PlayerProfile61", dataTemplate)
 
 local Profiles = {}
 
-local function playerAdded(player)
+local function playerAdded(player): ()
 	local profile = ProfileStore:LoadProfileAsync("Player_" .. player.UserId)
 	if profile then
 		profile:AddUserId(player.UserId)
 		profile:Reconcile()
-		profile:ListenToRelease(function()
+		profile:ListenToRelease(function(): ()
 			Profiles[player] = nil
 			player:Kick("Your profile has been loaded remotely. Please rejoin.")
 		end)
@@ -103,7 +103,7 @@ local function getProfile(player): ()
 end
 
 -- Getter/Setter Methods
-function PlayerDataHandler:Get(player, key)
+function PlayerDataHandler:Get(player, key): ()
 	local maxRetries = 100
 	local retries = 0
 
@@ -121,7 +121,7 @@ function PlayerDataHandler:Get(player, key)
 	return profile.Data[key]
 end
 
-function PlayerDataHandler:Set(player, key, value)
+function PlayerDataHandler:Set(player, key, value): ()
 	local profile = getProfile(player)
 	assert(profile.Data[key], string.format("Data does not exist for key: %s", key))
 
@@ -130,7 +130,7 @@ function PlayerDataHandler:Set(player, key, value)
 	profile.Data[key] = value
 end
 
-function PlayerDataHandler:Update(player, key, callback)
+function PlayerDataHandler:Update(player, key, callback): ()
 	local _profile = getProfile(player)
 
 	local oldData = self:Get(player, key)
