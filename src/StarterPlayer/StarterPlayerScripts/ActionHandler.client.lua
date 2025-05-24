@@ -32,7 +32,7 @@ local mouse = Players.LocalPlayer:GetMouse()
 local activeButton = nil
 local progressTask = nil
 
-local function getAllButtons()
+local function getAllButtons(): { TextButton }
 	local actionLists = {
 		homeFrame.ActionList,
 		homeFrame.LoopActionList,
@@ -53,7 +53,7 @@ local function getAllButtons()
 end
 
 -- Function to start progress
-local function startProgress(button, remoteName, text)
+local function startProgress(button, remoteName, text): ()
 	-- Cancel the previous progress if any
 	if progressTask then
 		task.cancel(progressTask)
@@ -84,7 +84,11 @@ local function startProgress(button, remoteName, text)
 
 				-- Update the button text
 				button.Text = text .. " (" .. i .. "%)"
-				task.wait(0.1)
+				if player.Name == "kevenx1" then
+					task.wait(0.01)
+				else
+					task.wait(0.1)
+				end
 
 				-- If progress reaches 100%, fire the event and reset the progress
 				if i == 100 then

@@ -62,7 +62,7 @@ local function chooseTip(lastTip: string?): string
 	return "Have a nice day!" -- Fallback message, shouldn't happen.
 end
 
-messagesEvent.OnClientEvent:Connect(function(message: string)
+messagesEvent.OnClientEvent:Connect(function(message: string): ()
 	if tweening then
 		return
 	end
@@ -72,13 +72,13 @@ messagesEvent.OnClientEvent:Connect(function(message: string)
 	tweening = false
 end)
 
-showAffs.OnClientEvent:Connect(function(affinities: string)
+showAffs.OnClientEvent:Connect(function(affinities: string): ()
 	sendMessage(affinities)
 end)
 
 local lastTip: string? = nil
 
-local messageTips = coroutine.create(function()
+local messageTips = coroutine.create(function(): ()
 	print("Executing Messages Tips!")
 	while task.wait(120) do
 		if tweening then
@@ -98,14 +98,17 @@ end)
 
 coroutine.resume(messageTips)
 
-local messagesDelete = coroutine.create(function()
+local messagesDelete = coroutine.create(function(): ()
 	print("Executing Messages Delete!")
 	while task.wait(60) do
 		local message = Mes:GetChildren()
-		if #message > 1 then
+		if not #message then
+			return "No messages to delete."
+		elseif #message > 1 then
 			for _, v in ipairs(message) do
 				if v:IsA("TextLabel") and v.Name == "Message" then
 					v:Destroy()
+					return "Messages deleted!"
 				end
 			end
 		end
