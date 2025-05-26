@@ -10,14 +10,17 @@ local playerGui = player.PlayerGui :: PlayerGui
 local eventsGui = playerGui:WaitForChild("EventsGui") :: ScreenGui
 local BG = eventsGui.Background :: Frame
 local message = BG.Messages :: TextButton
-local textHolder = BG.TextHolder :: Frame
+local textHolder = BG.DialogFrame :: Frame
 local text = textHolder.Text :: TextButton
 local charName = BG.CharName :: TextLabel
 local nameStroke = charName.UIStroke :: UIStroke
 local backImage = BG.Forest :: ImageLabel
 local strangeMan = BG.StrangeMan :: ImageLabel
-local accept = BG.Option1 :: TextButton
-local refuse = BG.Option2 :: TextButton
+local choicesFrame = BG.ChoicesFrame :: Frame
+local option1 = choicesFrame.Option1 :: TextButton
+local option2 = choicesFrame.Option2 :: TextButton
+local option3 = choicesFrame.Option3 :: TextButton
+local option4 = choicesFrame.Option4 :: TextButton
 
 eventsGui.Enabled = false
 textHolder.Transparency = 1
@@ -26,8 +29,10 @@ charName.TextTransparency = 1
 nameStroke.Transparency = 1
 backImage.ImageTransparency = 1
 strangeMan.ImageTransparency = 1
-accept.Transparency = 1
-refuse.Transparency = 1
+option1.Transparency = 1
+option2.Transparency = 1
+option3.Transparency = 1
+option4.Transparency = 1
 
 local skipFlag = { value = false }
 
@@ -125,6 +130,6 @@ beaten.OnClientEvent:Connect(function(): ()
 		5
 	)
 	showTextAndWait(text, "What do <font color='rgb(0,255,0)'>You</font> say?", 0.05, 5)
-	tween.Animate(accept, { Transparency = 0 }, 1)
-	tween.Animate(refuse, { Transparency = 0 }, 1)
+	tween.Animate(option1, { Transparency = 0 }, 1)
+	tween.Animate(option2, { Transparency = 0 }, 1)
 end)
