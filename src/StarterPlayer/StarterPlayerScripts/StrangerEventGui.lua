@@ -16,8 +16,8 @@ local charName = BG.CharName :: TextLabel
 local nameStroke = charName.UIStroke :: UIStroke
 local backImage = BG.Forest :: ImageLabel
 local strangeMan = BG.StrangeMan :: ImageLabel
-local accept = textHolder.Accept :: TextButton
-local refuse = textHolder.Refuse :: TextButton
+local accept = BG.Option1 :: TextButton
+local refuse = BG.Option2 :: TextButton
 
 eventsGui.Enabled = false
 textHolder.Transparency = 1
