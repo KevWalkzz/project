@@ -58,7 +58,7 @@ local dataTemplate = {
 local ProfileService = require(game.ServerScriptService.ProfileService)
 local Players = game:GetService("Players")
 
-local ProfileStore = ProfileService.GetProfileStore("PlayerProfile61", dataTemplate)
+local ProfileStore = ProfileService.GetProfileStore("PlayerProfile66", dataTemplate)
 
 local Profiles = {}
 

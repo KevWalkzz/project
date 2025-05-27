@@ -105,7 +105,7 @@ Explore.OnServerEvent:Connect(function(player): ()
 		end)
 
 		PlayerDataHandler:Update(player, "EventsFired", function(event): ()
-			event.Exploring += 1
+			event.Exploring += 9
 			if event.Exploring >= 10 then
 				event.Beaten = true
 				DataUpdater.checkKnowledge(player)

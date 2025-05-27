@@ -1,5 +1,5 @@
 local GetData = {}
-local PlayerDataHandler = require(game.ServerScriptService:WaitForChild("PlayerDataHandler"))
+local PlayerDataHandler = require(game.ServerScriptService:WaitForChild("PlayerDataHandler")) :: any
 
 function GetData.Data(player, Data: string, ...: string?): ()
 	local results = {}

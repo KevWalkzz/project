@@ -17,3 +17,7 @@ rojo serve
 ```
 
 For more help, check out [the Rojo documentation](https://rojo.space/docs).
+
+## Disclaimer
+Everything done here is for the pure purpose of learning. I got few parts of some codes with help of AI (I regret that cuz it means i have learned nothing)
+So, every help you offer, i appreciate.

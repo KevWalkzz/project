@@ -1,6 +1,6 @@
 local Info = {}
 
-Info.Dialogue = {
+Info.Dialog = {
 	[1] = {
 		Text = "You seem to have a lot of questions. Go ahead.",
 		Choices = {

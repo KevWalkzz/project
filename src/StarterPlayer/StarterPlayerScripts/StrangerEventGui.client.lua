@@ -17,10 +17,7 @@ local nameStroke = charName.UIStroke :: UIStroke
 local backImage = BG.Forest :: ImageLabel
 local strangeMan = BG.StrangeMan :: ImageLabel
 local choicesFrame = BG.ChoicesFrame :: Frame
-local option1 = choicesFrame.Option1 :: TextButton
-local option2 = choicesFrame.Option2 :: TextButton
-local option3 = choicesFrame.Option3 :: TextButton
-local option4 = choicesFrame.Option4 :: TextButton
+local cloneTemplate = BG.choiceTemplate :: TextButton
 
 eventsGui.Enabled = false
 textHolder.Transparency = 1
@@ -29,10 +26,7 @@ charName.TextTransparency = 1
 nameStroke.Transparency = 1
 backImage.ImageTransparency = 1
 strangeMan.ImageTransparency = 1
-option1.Transparency = 1
-option2.Transparency = 1
-option3.Transparency = 1
-option4.Transparency = 1
+cloneTemplate.Transparency = 1
 
 local skipFlag = { value = false }
 
@@ -130,6 +124,18 @@ beaten.OnClientEvent:Connect(function(): ()
 		5
 	)
 	showTextAndWait(text, "What do <font color='rgb(0,255,0)'>You</font> say?", 0.05, 5)
-	tween.Animate(option1, { Transparency = 0 }, 1)
-	tween.Animate(option2, { Transparency = 0 }, 1)
+
+	local accept = cloneTemplate:Clone()
+	accept.Parent = choicesFrame
+	accept.Name = "Accept"
+	accept.Text = "Accept"
+	tween.Animate(accept, { TextTransparency = 0 }, 1)
+	accept.TextColor3 = Color3.fromRGB(0, 255, 0)
+
+	local refuse = cloneTemplate:Clone()
+	refuse.Parent = choicesFrame
+	refuse.Name = "Refuse"
+	refuse.Text = "Refuse"
+	tween.Animate(refuse, { TextTransparency = 0 }, 1)
+	refuse.TextColor3 = Color3.fromRGB(255, 0, 0)
 end)
